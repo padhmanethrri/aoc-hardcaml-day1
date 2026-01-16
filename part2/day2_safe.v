@@ -1,5 +1,3 @@
-// Day 1 – Part 2
-// Closed-form zero-crossing counter (CORRECTED)
 
 module day2_safe #(
     parameter DIAL_SIZE = 100,
@@ -8,7 +6,7 @@ module day2_safe #(
     input  wire              clk,
     input  wire              rst,
     input  wire              valid,
-    input  wire              dir,      // 1 = L, 0 = R
+    input  wire              dir,      
     input  wire [STEP_W-1:0] steps,
     output reg  [31:0]       zero_count,
     output reg  [6:0]        pos
@@ -22,12 +20,12 @@ module day2_safe #(
     assign wraps = steps / DIAL_SIZE;
     assign rem   = steps % DIAL_SIZE;
 
-    // ✅ FIX: do NOT count if starting at zero
+    
     assign cross_zero =
         (pos != 0) &&
         (dir
-          ? ((pos + rem) >= DIAL_SIZE)   // LEFT
-          : (rem >= pos));               // RIGHT
+          ? ((pos + rem) >= DIAL_SIZE)   
+          : (rem >= pos));               
 
     assign hits = wraps + (cross_zero ? 1 : 0);
 
@@ -40,13 +38,13 @@ module day2_safe #(
             zero_count <= zero_count + hits;
 
             if (dir) begin
-                // LEFT
+               
                 pos <= (pos + rem >= DIAL_SIZE)
                      ? (pos + rem - DIAL_SIZE)
                      : (pos + rem);
             end
             else begin
-                // RIGHT
+             
                 pos <= (pos >= rem)
                      ? (pos - rem)
                      : (pos + DIAL_SIZE - rem);
