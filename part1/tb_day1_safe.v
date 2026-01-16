@@ -33,30 +33,30 @@ module tb_day1_safe;
         dir   = 0;
         amt   = 0;
 
-        // reset
+        
         repeat (2) @(posedge clk);
         rst = 0;
 
-        // open input file
+       
         fd = $fopen("input.txt", "r");
         if (fd == 0) begin
             $display("ERROR: input.txt not found");
             $finish;
         end
 
-        // stream instructions
+     
         while ($fscanf(fd, " %c%d", ch, value) == 2) begin
             @(negedge clk);
             dir   = (ch == "R" || ch == "r");
             amt   = value;
             valid = 1;
 
-            @(posedge clk);   // instruction consumed
+            @(posedge clk);   
 
             @(negedge clk);
             valid = 0;
 
-            @(posedge clk);   // allow state to settle
+            @(posedge clk);   
         end
 
         $fclose(fd);
