@@ -40,6 +40,7 @@ aoc-hardcaml-day1/
 - part1/
   - day1_safe.v
   - tb_day1_safe.v
+  - input.txt
   - README.md
 - part2/
   - day2_safe.v
